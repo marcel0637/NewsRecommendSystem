@@ -15,7 +15,19 @@
 
 ### 项目效果演示
 
-<video src="./resources/效果展示.mov"></video>
+
+![](./resources/效果图1.png)
+
+
+
+![](./resources/效果图2.png)
+
+
+
+![](./resources/效果图3.png)
+
+
+
 
 ### 项目模块说明
 
