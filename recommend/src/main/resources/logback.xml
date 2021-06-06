@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+<!--    <property name="LOG_HOME" value="/Users/yanghao/IdeaProjects/recommend/src/main/logs" />-->
+    <property name="LOG_HOME" value="/root/recommend/logs" />
+    <!--控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--文件输出 -->
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/logFile.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/logFile.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root>
+        <level value="info" />
+        <appender-ref ref="logfile" />
+    </root>
+</configuration>
