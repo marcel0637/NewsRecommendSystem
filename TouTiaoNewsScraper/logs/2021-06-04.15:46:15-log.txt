@@ -1,0 +1,4 @@
+levelname:INFO filename: common.py outputNumber: [25]  thread: MainThread output msg:   clear part redis&mysql for reuse start... - [04/Jun/2021 15:46:15]
+levelname:INFO filename: common.py outputNumber: [25]  thread: MainThread output msg:  清空测试redis数据成功... - [04/Jun/2021 15:46:16]
+levelname:INFO filename: common.py outputNumber: [25]  thread: MainThread output msg:  清空测试mysql数据成功... - [04/Jun/2021 15:46:17]
+levelname:INFO filename: common.py outputNumber: [25]  thread: MainThread output msg:   clear part redis&mysql for reuse success... - [04/Jun/2021 15:46:17]
