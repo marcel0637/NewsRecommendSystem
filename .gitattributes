@@ -4,3 +4,4 @@ NewsRecommend filter=lfs diff=lfs merge=lfs -text
 TouTiaoNewsScraper filter=lfs diff=lfs merge=lfs -text
 mysql filter=lfs diff=lfs merge=lfs -text
 recommend filter=lfs diff=lfs merge=lfs -text
+resources filter=lfs diff=lfs merge=lfs -text
