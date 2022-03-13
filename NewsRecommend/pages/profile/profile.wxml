@@ -1,0 +1,89 @@
+<!--pages/profile/profile.wxml-->
+
+<view class="{{tabsFixed ? 'header-fixed' : ''}}">
+	<!-- 封面 -->
+	<image class="poster" src="/resource/images/profile/back.jpeg"
+		mode="aspectFill"/>
+
+	<!-- 个人信息 -->
+	<view class="header">
+		<view class="user-box">
+			<view wx:if="{{!user.avatar}}" class="avatar-box">
+				<open-data class="avatar" type="userAvatarUrl"></open-data>
+			</view>
+			<image wx:else class="avatar" src="{{user.avatar}}" bindtap="changeAvatar" mode="aspectFill" />
+			<view class="btn-box">
+				<l-button shape="semicircle" size="mini" bg-color="#337559" width="180" height="55"
+					bind:lintap="gotoUserEdit">编辑</l-button>
+				<navigator class="setting" url="/pages/setting/index">
+					<l-icon name="setting" color="#fff" size="30" />
+				</navigator>
+			</view>
+		</view>
+		<text wx:if="{{user.nick_name}}" class="nick-name">{{tabsFixed ? '' : user.nick_name}}</text>
+		<open-data wx:else class="nick-name" type="userNickName"></open-data>
+		<text class="signature">{{user.signature ? user.signature : '这家伙很懒，什么都没有留下'}}</text>
+		<view class="follow-box">
+			<view class="follow follower" bindtap="gotoFollower">
+        <text class="num">{{views.length != 0 ? views.length : '0'}}</text>
+        <text class="text">我的浏览</text>
+			</view>
+			<view class="follow following">
+        <text class="num">{{stars.length != 0 ? stars.length : '0'}}</text>
+        <text class="text">我的收藏</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+<!-- 我的动态 -->
+<l-tabs id="tabs" animated animated-for-line active-color="#337559"
+	l-header-class="tabs {{tabsFixed ? 'tabs-fixed' : ''}}" l-line-class="tabs-line" bind:linchange="changeTabs">
+	<l-tabpanel tab="关键词" key="topic" slot="topic">
+		<view class="{{tabsFixed ? 'tab-content-top' : ''}} tab-content">
+			<nothing wx:if="{{tagEle.length == 0}}" pic="/resource/images/profile/paw-print.png" tip="您还没有浏览过新闻"
+				nothing-class="{{messageBrief ? 'nothing-message' : 'nothing'}}" />
+				<view wx:if="{{tagEle.length != 0}}" class="tagBall">
+					<a class="tag" wx:for="{{tagEle}}" wx:key="{{index}}" style="opacity:{{item.o}};z-index:{{item.z}};left: {{item.x}}rpx;top: {{item.y}}rpx;transform: scale({{item.s}}); color:{{item.color}}">
+						{{item.title}}
+					</a>
+				</view>
+		</view>
+	</l-tabpanel>
+	<l-tabpanel tab="浏览历史" key="comment" slot="comment">
+		<view class="{{tabsFixed ? 'tab-content-top' : ''}} tab-content">
+			<nothing wx:if="{{views.length == 0}}" pic="/resource/images/profile/paw-print.png" tip="您还没有浏览过新闻"
+				nothing-class="{{messageBrief ? 'nothing-message' : 'nothing'}}" />
+        <l-card data-id="{{item.docId}}" bindtap="gotoNewsDetail" wx:for="{{views}}" wx:key="item" l-class="card"
+				l-img-class="card-img"
+				l-title-class="tab-nick-name" type="primary" position="left"
+				image="{{item.img}}" image-mode="aspectFill"
+				title="{{catMap[item.cat]}}新闻">
+				<view class="card-content">
+					{{item.title}}
+				</view>
+			</l-card>
+		</view>
+	</l-tabpanel>
+	<l-tabpanel tab="收藏" key="star" slot="star">
+		<view class="{{tabsFixed ? 'tab-content-top' : ''}} tab-content">
+			<nothing wx:if="{{stars.length == 0}}" pic="/resource/images/profile/pic_star.png" tip="您还没有收藏新闻"
+				nothing-class="{{messageBrief ? 'nothing-message' : 'nothing'}}" />
+			<l-card data-id="{{item.docId}}" bindtap="gotoNewsDetail" wx:for="{{stars}}" wx:key="item" l-class="card"
+				l-img-class="card-img"
+				l-title-class="tab-nick-name" type="primary" position="left"
+				image="{{item.img}}" image-mode="aspectFill"
+				title="{{catMap[item.cat]}}新闻">
+				<view class="card-content">
+					{{item.title}}
+				</view>
+			</l-card>
+		</view>
+	</l-tabpanel>
+</l-tabs>
+
+<!-- 消息提示 -->
+<l-message />
+
+<!-- 消息对话框 -->
+<l-dialog />

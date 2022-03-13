@@ -1,0 +1,47 @@
+<!--pages/newsList/newsList.wxml-->
+<wxs module="tool" src="../../wxs/tool.wxs"></wxs>
+
+  <view class="nav-fix">
+    <view class="header">
+      <view class="search-tab" bindtap="bindSearchNavigate">
+        <icon class="session-search-icon" type="search" size="18"></icon>
+        <text class="search-placeholder">搜索你感兴趣的新闻</text>
+      </view>
+    </view>
+    <view class="top-bar">
+      <scroll-view scroll-x="true" scroll-with-animation="true" scroll-left='{{barNavX}}' >
+      <text class="{{barIndex==index?'checked':''}}" wx:for="{{barList}}" wx:key="item"  bindtap="clickTopBar" data-index="{{index}}">{{item}}</text>
+      </scroll-view>
+    </view>
+  </view>
+  <view id="newsListPage">
+    <view class="weui-loadmore" wx:if='{{isRefreshing}}'>
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore-tips">正在刷新...</view>
+    </view>
+    <view class="news-list">
+      <view class="news-item" wx:for="{{newsList[barIndex]}}" wx:key="id">
+        <view class="item-head">
+          <image src="{{'../../resource/images/head/'+sourceImg[item.recommendSource]}}" />
+          <text>{{sourceName[item.recommendSource]}}</text>
+        </view>
+        <view class="news-content" bindtap="goNewsDetail" data-id="{{item.docId}}">
+          <text>{{item.title}}</text>
+          <image mode="widthFix"  src="{{item.img}}" />
+        </view>
+        <view class="news-footer">
+            <text>{{catMap[item.cat]}}新闻 {{item.commentCount}}评论 {{tool.simplyToRelativeTime(item.newsTimeStamp)}}</text>
+          </view>
+      </view>
+
+      <view wx:if='{{!isRefreshing}}' class="weui-loadmore">
+        <view wx:if='{{isLoadingMoreData}}'>
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore-tips">正在加载更多...</view>
+        </view>
+        <view wx:else>
+          <view class="weui-loadmore-tips">下滑加载更多</view>
+        </view>
+      </view>
+    </view>
+</view>

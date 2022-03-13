@@ -1,0 +1,24 @@
+<!--pages/search/search.wxml-->
+<wxs module="tool" src="../../wxs/tool.wxs"></wxs>
+
+<view class="nav-fix">
+  <view class="header">
+    <view class="search-tab">
+      <icon class="session-search-icon" type="search" size="18"></icon>
+      <input class="search-placeholder" placeholder="搜索你感兴趣的新闻" value="{{searchValue}}" bindconfirm="bindSearchInput"></input>
+    </view>
+  </view>
+</view>
+<view class="tab-content">
+  <nothing wx:if="{{searchs.length == 0}}" pic="/resource/images/profile/search.png" tip="搜索结果为空或者输入关键词有误"
+    nothing-class="{{messageBrief ? 'nothing-message' : 'nothing'}}" />
+  <l-card data-id="{{item.docId}}" bindtap="gotoNewsDetail" wx:for="{{searchs}}" wx:key="item" l-class="card"
+  l-img-class="card-img"
+  l-title-class="tab-nick-name" type="primary" position="left"
+  image="{{item.img}}" image-mode="aspectFill"
+  title="{{catMap[item.cat]}}新闻">
+    <view class="card-content">
+      <text wx:for="{{item.title}}" wx:for-item="skey" class="{{skey==searchValue?'searchHigh':''}}">{{skey}}</text>
+    </view>
+  </l-card>
+</view>

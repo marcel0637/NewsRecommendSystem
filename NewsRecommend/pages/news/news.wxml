@@ -1,0 +1,51 @@
+<!--pages/news/news.wxml-->
+<wxs module="tool" src="../../wxs/tool.wxs"></wxs>
+<view class="detail-container">
+  <image class="head-image" src="{{newsDetail.img}}"></image>
+  <view class="author-date">
+    <image class="avatarup" src="../../resource/images/news/newspaper.png"></image>
+    <text class="author">{{newsDetail.newsFrom}}</text>
+    <text class="const-text">发表于</text>
+    <text class="date">{{tool.simplyToRelativeTime(newsDetail.newsTimeStamp)}}</text>
+  </view>
+  <text class="title">{{newsDetail.title}}</text>
+  <view class="tool">
+    <view class="circle-img">
+      <image src="../../resource/images/news/comment.png" bindtap="goToComment"></image>
+      <image hidden="{{!isCollect}}" src="../../resource/images/news/collect2.png" bindtap="changeCollect"></image>
+      <image hidden="{{isCollect}}" src="../../resource/images/news/collect2-rev.png" bindtap="changeCollect"></image>
+      <image class="share-img" src="../../resource/images/news/share.png"></image>
+    </view>
+    <view class="horizon"></view>
+  </view>
+  <text class="detail">{{newsDetail.artibody}}</text>
+</view>
+<!-- 评论 -->
+<view wx:if="{{comments.length > 0}}" class="comment-box">
+	<view class="comment" wx:for="{{comments}}" wx:key="item" data-index="{{index}}">
+		<image class="avatar" src="{{item.avatar}}"/>
+		<view class="comment-right {{index == comments.length - 1 ? 'non-border' : ''}}">
+			<view class="comment-top">
+				<view class="nick-name">{{item.nickName}}
+				</view>
+				<view class="time">{{tool.simplyToRelativeTime(item.createTimeStamp)}}</view>
+			</view>
+			<view class="comment-bottom">
+				<view class="content">
+          {{item.content}}
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+
+<!-- 评论编辑区 -->
+<view class="comment-edit">
+	<l-input hide-label maxlength="150" width="600" placeholder="{{placeholder}}" value="{{comment}}"
+		bind:lininput="inputComment" />
+	<l-button shape="circle" size="mini" bg-color="#337559" width="125" height="60" bind:lintap="onCommntBtnTap">评论
+	</l-button>
+</view>
+
+<!-- 消息提示 -->
+<l-message />
